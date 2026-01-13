@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <section>
+      <h1 class="title">Sign-up Page</h1>
+      <form id="dForm" action="submit" method="post" onsubmit = "confirmSubmission(event)" onreset = "confirmReset(event)">
+        <fieldset>
+          <legend>Your Credentials</legend><br/>
+          <label> StudentID: 
+            <input type="number" name="number" id="number" required onblur = "missingInformation1()"/>
+          </label><br/><br/>
+
+          <label> Full Name: 
+            <input type="text" name="uname" id="uname" required onblur = "missingInformation2()" />
+          </label><br/><br/>
+
+          <label> Date Of Birth :
+            <input type="date" name="dob" id="dob" required onblur = "missingInformation3()" />
+          </label><br/><br/>   
+
+          <label> Email Address :
+            <input type="email" name="email" id="email" required onblur = "missingInformation4()" />
+          </label><br/><br/>
+
+          <label> Mobile Phone: 
+            <input type="text" name="uname" id="uname" required onblur = "missingInformation2()" />
+          </label><br/><br/>
+
+          <label> Grade Level: 
+            <select name="Grade" id="Grade" required onblur = "missingInformation3()">
+            <option value="Grade7">Grade 7</option>
+            <option value="Grade8">Grade 8</option>
+            <option value="Grade9">Grade 9</option>
+            <option value="Grade10">Grade 10</option>
+            <option value="Grade11">Grade 11</option> 
+            <option value="Grade12">Grade 12</option>
+          </label><br/><br/>
+
+
+          <label> Intern/Extern :
+            <input type="radio" name="yes" value="Intern" required onblur = "missingInformation4()" /> Intern
+            <input type="radio" name="yes" value="Extern" required onblur = "missingInformation5()" /> Extern
+          </label><br/><br/>
+
+          <label> Preferred Organization/Club: 
+            <select name="Preferred" id="Preferred" required onblur = "missingInformation6()">
+            <option value="Tomorrow">Tomorrow</option>
+            <option value="Bahaghari">Bahaghari</option>
+            <option value="Alianti">Alianti</option>
+            <option value="Volant">Volant</option>
+            <option value="MUN">MUN</option> 
+            <option value="Labuyo">Labuyo</option>
+            <option value="The Science Scholar">The Science Scholar</option>
+            <option value="Lagablab">Lagablab</option>
+            <option value="Math Club">Math Club</option>
+            <option value="Invictus">Invictus</option>
+            </select>             
+          </label><br/><br/>
+
+          <label> Why do you want to join : 
+            <textarea name="about" id="about" required onblur = "missingInformation7()"></textarea>
+          </label><br/><br/>
+          
+          
+        </fieldset>
+        <fieldset>
+          <legend>Action Buttons</legend>
+          <button type="submit"> Accept </button>
+          <input type="reset" value=" Clear " />
+        </fieldset> 
+      </form>
+    </section>
+    <script>
+        function confirmSubmission(event){
+    const userConfirmed = confirm("Are you sure you want to submit this form?");
+    
+    if (!userConfirmed) {
+        event.preventDefault();
+        alert("Form submission cancelled.");
+    }
+    } 
+
+
+
+    function confirmReset(event) {
+    const userConfirmed = confirm("Are you sure you want to reset all the information? ");
+    
+    if (!userConfirmed) {
+        event.preventDefault();
+        alert("Form submission cancelled.");
+    }
+    } 
+
+
+    function missingInformation1() {
+        document.getElementById("studentid").style.background = "red";
+    }
+    function missingInformation2(){
+        document.getElementById("fname").style.background = "red";
+    }
+    function missingInformation3(){
+        document.getElementById("birthday").style.background = "red";
+    }
+    function missingInformation4(){
+        document.getElementById("email").style.background = "red";
+    }
+    function missingInformation5(){
+        document.getElementById("phone").style.background = "red";
+    }
+    function missingInformation6(){
+        document.getElementById("i/e").style.background = "red";
+    }
+    function missingInformation7(){
+        document.getElementById("about").style.background = "red";
+    }
+    </script>
+
+  </body>
+</html>
