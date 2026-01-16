@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Q3 2nd Graded Exercise">
+    <meta name="keywords" content="HTML Forms">
+    <meta name="author" content="AL Mendoza">
+    <title>Sample Form</title>
+    <!-- updated external css link to show how to share it between repository -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="icon" href="../../assets/pshslogo.png" sizes="32x32" type="image/png">
+    <script src="script.js" defer></script>
+
+   <style>
+    body{
+        padding: 25px;
+        font-family: arial;
+        width: 80%;
+        margin-left: 10%;
+        }
+
+        .title {
+            color: #5C6AC4;
+        }
+
+        fieldset:nth-child(2) {
+             margin-top: 20px;
+        }
+
+        legend {
+            background: black;
+            color: yellow;
+            padding: 5px;
+        }
+        label {
+             margin: 5%;
+        }
+    </style>
     
   </head>
   <body>
@@ -10,27 +47,27 @@
         <fieldset>
           <legend>Your Credentials</legend><br/>
           <label> StudentID: 
-            <input type="number" name="number" id="number" required onblur = "missingInformation1()"/>
+            <input type="number" name="number" id="number" required onblur = "missingInformation(this)"/>
           </label><br/><br/>
 
           <label> Full Name: 
-            <input type="text" name="uname" id="uname" required onblur = "missingInformation2()" />
+            <input type="text" name="uname" id="uname" required onblur = "missingInformation(this)" />
           </label><br/><br/>
 
           <label> Date Of Birth :
-            <input type="date" name="dob" id="dob" required onblur = "missingInformation3()" />
+            <input type="date" name="dob" id="dob" required onblur = "missingInformation(this)" />
           </label><br/><br/>   
 
           <label> Email Address :
-            <input type="email" name="email" id="email" required onblur = "missingInformation4()" />
+            <input type="email" name="email" id="email" required onblur = "missingInformation(this)" />
           </label><br/><br/>
 
           <label> Mobile Phone: 
-            <input type="text" name="uname" id="uname" required onblur = "missingInformation2()" />
+            <input type="text" name="phone" id="phone" required onblur = "missingInformation(this)" />
           </label><br/><br/>
 
           <label> Grade Level: 
-            <select name="Grade" id="Grade" required onblur = "missingInformation3()">
+            <select name="Grade" id="Grade" required onblur = "missingInformation(this)">
             <option value="Grade7">Grade 7</option>
             <option value="Grade8">Grade 8</option>
             <option value="Grade9">Grade 9</option>
@@ -41,12 +78,12 @@
 
 
           <label> Intern/Extern :
-            <input type="radio" name="yes" value="Intern" required onblur = "missingInformation4()" /> Intern
-            <input type="radio" name="yes" value="Extern" required onblur = "missingInformation5()" /> Extern
+            <input type="radio" name="yes" value="Intern" required onblur = "missingInformation(this)" /> Intern
+            <input type="radio" name="yes" value="Extern" required onblur = "missingInformation(this)" /> Extern
           </label><br/><br/>
 
           <label> Preferred Organization/Club: 
-            <select name="Preferred" id="Preferred" required onblur = "missingInformation6()">
+            <select name="Preferred" id="Preferred" required onblur = "missingInformation(this)">
             <option value="Tomorrow">Tomorrow</option>
             <option value="Bahaghari">Bahaghari</option>
             <option value="Alianti">Alianti</option>
@@ -61,7 +98,7 @@
           </label><br/><br/>
 
           <label> Why do you want to join : 
-            <textarea name="about" id="about" required onblur = "missingInformation7()"></textarea>
+            <textarea name="about" id="about" required onblur = "missingInformation(this)"></textarea>
           </label><br/><br/>
           
           
@@ -95,26 +132,31 @@
     } 
 
 
-    function missingInformation1() {
-        document.getElementById("studentid").style.background = "red";
+    function missingInformation1(elem) {
+        elem.style.background = "red";
     }
-    function missingInformation2(){
-        document.getElementById("fname").style.background = "red";
+
+
+    function focus1() {
+        document.getElementById("number").style.background = "blue";
+    }
+    function focus2(){
+        document.getElementById("uname").style.background = "blue";
     }
     function missingInformation3(){
-        document.getElementById("birthday").style.background = "red";
+        document.getElementById("birthday").style.background = "blue";
     }
     function missingInformation4(){
-        document.getElementById("email").style.background = "red";
+        document.getElementById("email").style.background = "blue";
     }
     function missingInformation5(){
-        document.getElementById("phone").style.background = "red";
+        document.getElementById("phone").style.background = "blue";
     }
     function missingInformation6(){
-        document.getElementById("i/e").style.background = "red";
+        document.getElementById("i/e").style.background = "blue";
     }
     function missingInformation7(){
-        document.getElementById("about").style.background = "red";
+        document.getElementById("about").style.background = "blue";
     }
     </script>
 
