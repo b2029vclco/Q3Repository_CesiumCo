@@ -14,12 +14,12 @@
     <script src="script.js" defer></script>
 
    <style>
-    body{
-        padding: 25px;
-        font-family: arial;
-        width: 80%;
-        margin-left: 10%;
-        }
+        body{
+          padding: 25px;
+          font-family: arial;
+          width: 80%;
+          margin-left: 10%;
+          }
 
         .title {
             color: #5C6AC4;
@@ -37,6 +37,17 @@
         label {
              margin: 5%;
         }
+        .blur {
+          border: 2px solid red;
+          background-color: rgb(253, 109, 109);
+        }
+        .focus {
+          border: 2px solid rgb(0, 38, 255);
+          background-color: rgb(128, 162, 255);
+        }        
+        .buttons {
+          text-align: center;
+        }
     </style>
     
   </head>
@@ -47,27 +58,27 @@
         <fieldset>
           <legend>Your Credentials</legend><br/>
           <label> StudentID: 
-            <input type="number" name="number" id="number" required onblur = "missingInformation(this)"/>
+            <input type="number" name="number" id="number" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
           </label><br/><br/>
 
           <label> Full Name: 
-            <input type="text" name="uname" id="uname" required onblur = "missingInformation(this)" />
+            <input type="text" name="uname" id="uname" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
           </label><br/><br/>
 
           <label> Date Of Birth :
-            <input type="date" name="dob" id="dob" required onblur = "missingInformation(this)" />
+            <input type="date" name="dob" id="dob" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
           </label><br/><br/>   
 
           <label> Email Address :
-            <input type="email" name="email" id="email" required onblur = "missingInformation(this)" />
+            <input type="email" name="email" id="email" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
           </label><br/><br/>
 
           <label> Mobile Phone: 
-            <input type="text" name="phone" id="phone" required onblur = "missingInformation(this)" />
+            <input type="text" name="phone" id="phone" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
           </label><br/><br/>
 
           <label> Grade Level: 
-            <select name="Grade" id="Grade" required onblur = "missingInformation(this)">
+            <select name="Grade" id="Grade" required onblur = "bblur(this)" onfocus = "ffocus(this)">
             <option value="Grade7">Grade 7</option>
             <option value="Grade8">Grade 8</option>
             <option value="Grade9">Grade 9</option>
@@ -78,12 +89,12 @@
 
 
           <label> Intern/Extern :
-            <input type="radio" name="yes" value="Intern" required onblur = "missingInformation(this)" /> Intern
-            <input type="radio" name="yes" value="Extern" required onblur = "missingInformation(this)" /> Extern
+            <input type="radio" name="yes" value="Intern" required onblur = "bblur(this)" onfocus = "ffocus(this)"/> Intern
+            <input type="radio" name="yes" value="Extern" required onblur = "bblur(this)" onfocus = "ffocus(this)"/> Extern
           </label><br/><br/>
 
           <label> Preferred Organization/Club: 
-            <select name="Preferred" id="Preferred" required onblur = "missingInformation(this)">
+            <select name="Preferred" id="Preferred" required onblur = "bblur(this)" onfocus = "ffocus(this)">
             <option value="Tomorrow">Tomorrow</option>
             <option value="Bahaghari">Bahaghari</option>
             <option value="Alianti">Alianti</option>
@@ -98,7 +109,7 @@
           </label><br/><br/>
 
           <label> Why do you want to join : 
-            <textarea name="about" id="about" required onblur = "missingInformation(this)"></textarea>
+            <textarea name="about" id="about" required onblur = "bblur(this)" onfocus = "ffocus(this)"></textarea>
           </label><br/><br/>
           
           
@@ -111,6 +122,25 @@
       </form>
     </section>
     <script>
+
+      function bblur(elem) {
+      if (elem.value.trim() === "") {
+        elem.classList.remove("focus");
+        elem.classList.add("blur");
+      } else {
+        elem.classList.remove("blur");
+      }
+    }
+
+          function ffocus(elem) {
+      if (elem.value.trim() === "") {
+        elem.classList.remove("blur");        
+        elem.classList.add("focus");
+      } else {
+        elem.classList.remove("focus");
+      }
+    }
+
         function confirmSubmission(event){
     const userConfirmed = confirm("Are you sure you want to submit this form?");
     
