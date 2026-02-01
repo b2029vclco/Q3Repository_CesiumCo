@@ -54,7 +54,10 @@
   <body>
     <section>
       <h1 class="title">Sign-up Page</h1>
-      <form id="dForm" action="submit" method="post" onsubmit = "confirmSubmission(event)" onreset = "confirmReset(event)">
+
+      <a href="viewSignUps.html">List of Students</a>
+
+      <form id="dForm" method="post" onsubmit = "confirmSubmission(event)" onreset = "confirmReset(event)">
         <fieldset>
           <legend>Your Credentials</legend><br/>
           <label> StudentID: 
@@ -78,7 +81,8 @@
           </label><br/><br/>
 
           <label> Grade Level: 
-            <select name="Grade" id="Grade" required onblur = "bblur(this)" onfocus = "ffocus(this)">
+            <select name="Grade" id="Grade" required onblur = "bblur(this)" onfocus = "ffocus(this)" >
+            <option value=""></option>
             <option value="Grade7">Grade 7</option>
             <option value="Grade8">Grade 8</option>
             <option value="Grade9">Grade 9</option>
@@ -89,8 +93,8 @@
 
 
           <label> Intern/Extern :
-            <input type="radio" name="yes" value="Intern" required onblur = "bblur(this)" onfocus = "ffocus(this)"/> Intern
-            <input type="radio" name="yes" value="Extern" required onblur = "bblur(this)" onfocus = "ffocus(this)"/> Extern
+            <input type="radio" name="yes" id="intern" value="Intern" required onblur = "bblur(this)" onfocus = "ffocus(this)"/> Intern
+            <input type="radio" name="yes" id="extern" value="Extern" required onblur = "bblur(this)" onfocus = "ffocus(this)"/> Extern
           </label><br/><br/>
 
           <label> Preferred Organization/Club: 
@@ -109,7 +113,7 @@
           </label><br/><br/>
 
           <label> Why do you want to join : 
-            <textarea name="about" id="about" required onblur = "bblur(this)" onfocus = "ffocus(this)"></textarea>
+            <textarea name="reason" id="reason" required onblur = "bblur(this)" onfocus = "ffocus(this)"></textarea>
           </label><br/><br/>
           
           
@@ -123,7 +127,52 @@
     </section>
     <script>
 
-      function bblur(elem) {
+     const KEY = 'students';
+
+     function loadStudents() {
+      const raw = localStorage.getItem(KEY);
+
+      if (raw){  //check if raw is not null or undefined
+        return JSON.parse(raw);
+      }
+      else{
+        return []; //if undefined, empty array
+      }
+     }      
+
+
+    function saveToLocal() {
+      //get from the form
+      const studentID = document.getElementById('number').value.trim();
+      const name = document.getElementById('uname').value.trim();
+      const birth = document.getElementById('dob').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const mobile = document.getElementById('phone').value.trim();
+      const gradelevel = document.getElementById('Grade').value.trim();
+      const club = document.getElementById('Preferred').value.trim();
+      const internOrExtern = (document.getElementById('intern').checked?"Intern":"Extern");
+
+      //put in object
+      const obj = {
+        studentID: studentID,
+        name: name,
+        birth: birth,
+        email: email,
+        mobile: mobile,
+        gradelevel: gradelevel,
+        club: club,
+        internOrExtern: internOrExtern
+      }
+
+      const students = loadStudents();
+      //add to array and save
+      students.push(obj);   
+      localStorage.setItem(KEY, JSON.stringify(students));
+
+
+     }
+
+    function bblur(elem) {
       if (elem.value.trim() === "") {
         elem.classList.remove("focus");
         elem.classList.add("blur");
@@ -132,7 +181,7 @@
       }
     }
 
-          function ffocus(elem) {
+    function ffocus(elem) {
       if (elem.value.trim() === "") {
         elem.classList.remove("blur");        
         elem.classList.add("focus");
@@ -141,53 +190,47 @@
       }
     }
 
-        function confirmSubmission(event){
-    const userConfirmed = confirm("Are you sure you want to submit this form?");
-    
-    if (!userConfirmed) {
+    function confirmSubmission(event){
+      const userConfirmed = confirm("Are you sure you want to submit this form?");
+      if (userConfirmed)
+      {
         event.preventDefault();
-        alert("Form submission cancelled.");
-    }
+        saveToLocal();
+        alert("Form submission saved.");
+
+        //reset the fields for new input
+        document.getElementById('number').value = '';
+        document.getElementById('uname').value = '';
+        document.getElementById('dob').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('Grade').value = '';
+        document.getElementById('Preferred').value = '';
+        document.getElementById('intern').checked = false;
+        document.getElementById('extern').checked = false;
+        document.getElementById('reason').value = '';
+
+      }
+    
+      if (!userConfirmed) {
+          event.preventDefault();
+          alert("Form submission cancelled.");
+      }
     } 
 
 
 
     function confirmReset(event) {
-    const userConfirmed = confirm("Are you sure you want to reset all the information? ");
-    
-    if (!userConfirmed) {
-        event.preventDefault();
-        alert("Form submission cancelled.");
-    }
+      const userConfirmed = confirm("Are you sure you want to reset all the information? ");
+      
+      if (!userConfirmed) {
+          event.preventDefault();
+          alert("Form submission cancelled.");
+      }
     } 
 
 
-    function missingInformation1(elem) {
-        elem.style.background = "red";
-    }
-
-
-    function focus1() {
-        document.getElementById("number").style.background = "blue";
-    }
-    function focus2(){
-        document.getElementById("uname").style.background = "blue";
-    }
-    function missingInformation3(){
-        document.getElementById("birthday").style.background = "blue";
-    }
-    function missingInformation4(){
-        document.getElementById("email").style.background = "blue";
-    }
-    function missingInformation5(){
-        document.getElementById("phone").style.background = "blue";
-    }
-    function missingInformation6(){
-        document.getElementById("i/e").style.background = "blue";
-    }
-    function missingInformation7(){
-        document.getElementById("about").style.background = "blue";
-    }
+ 
     </script>
 
   </body>

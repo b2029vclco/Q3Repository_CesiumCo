@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Signup List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: white;
+            color: #000;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .author {
+            font-weight: bold;
+            margin: 5px 0 15px 0;
+            font-size: 18px;
+        }
+
+        .back-link {
+            color: 3e3eb8;
+            text-decoration: underline;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .selectorlabel {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 2px solid #3e3eb8; 
+            border-radius: 6px;
+            width: 300px;
+            font-size: 16px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .count {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #3e3eb8;
+        }
+
+        th {
+            background-color: #3e3eb8;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #3e3eb8;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #000000;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        .otherrow td {
+            background-color: #3e3eb8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Show List of Students Who Signed-Up</h1>
+    <div class="author">by Varick Co</div>
+
+    <a href="Q3_2GCesiumCo.html">Back to Form</a>
+
+    <div class="selector">
+        <span class="selectorlabel" >Select Your Club</span>
+        <select id="club" onchange="render()">
+            <option value="">All</option>
+            <option value="Tomorrow">Tomorrow</option>
+            <option value="Bahaghari">Bahaghari</option>
+            <option value="Alianti">Alianti</option>
+            <option value="Volant">Volant</option>
+            <option value="MUN">MUN</option> 
+            <option value="Labuyo">Labuyo</option>
+            <option value="The Science Scholar">The Science Scholar</option>
+            <option value="Lagablab">Lagablab</option>
+            <option value="Math Club">Math Club</option>
+            <option value="Invictus">Invictus</option>
+        </select>
+    </div>
+
+    <div class="count">Total Signup : <span id="signUpCount"></span></div>
+
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Club</th>
+                <th>ID</th>
+                <th>Fullname</th>
+                <th>Grade</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Intern|Extern</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+
+</body>
+
+<script>
+   
+    const KEY = 'students';
+
+    
+    function loadStudents() {
+        const raw = localStorage.getItem(KEY);
+
+        if (raw){  //check if raw is not null or undefined
+            return JSON.parse(raw);
+        }
+        else{
+            return []; //empty array if not data
+        }
+    }      
+
+    //handle code injection
+    function escapeHtml(s) {
+      let str = String(s);
+      let escapedStr = "";
+      for (let i = 0; i < str.length; i++) {
+        let c = str[i];
+        if (c === '&') {
+            escapedStr += '&amp;';
+        } else if (c === '<') {
+            escapedStr += '&lt;';
+        } else if (c === '>') {
+            escapedStr += '&gt;';
+        } else if (c === '"') {     
+            escapedStr += '&quot;';
+        } else if (c === "'") {
+            escapedStr += '&#39;';
+        } else {
+            escapedStr += c;
+        }
+      }
+      return escapedStr;
+    }
+
+
+    function render() {
+
+      const students = loadStudents();
+      const table = document.getElementById('tbody');
+
+      //empty array
+      if (students.length === 0) {
+        table.innerHTML = '<tr><td colspan = 7><b>No students yet</b></td></tr>';
+        signUpCount.innerHTML = "0";
+        return;
+      }
+
+      let output = "";
+      let odd = false;
+      let counter = 0;
+      for (let i = 0; i < students.length; i++) {
+        //check if all clubs or correct club
+        if (students[i].club == document.getElementById('club').value || document.getElementById('club').value == "")
+        {
+            if (!odd)
+                output += `<tr>`
+            else
+                output += `<tr class="otherrow">`
+
+            output +=
+                `<td>${escapeHtml(students[i].club)}</td>
+                <td>${escapeHtml(students[i].studentID)}</td>
+                <td>${escapeHtml(students[i].name)}</td>
+                <td>${escapeHtml(students[i].gradelevel)}</td>
+                <td>${escapeHtml(students[i].email)}</td>
+                <td>${escapeHtml(students[i].mobile)}</td>
+                <td>${escapeHtml(students[i].internOrExtern)}</td>
+                </tr>`
+            odd = !odd;
+            counter++;
+
+        }
+        
+     }
+      signUpCount.innerHTML = counter;
+      table.innerHTML = output;
+    }
+
+    render();
+
+</script>
+</html>
+
