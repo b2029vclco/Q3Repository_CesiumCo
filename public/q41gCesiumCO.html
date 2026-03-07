@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Q4 1st Graded Exercise">
+    <meta name="keywords" content="HTML Forms">
+    <meta name="author" content="VARICK CO">
+    <title>Movie Reviews</title>
+    <!-- updated external css link to show how to share it between repository -->
+   <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6; /* Light background to make the card pop */
+            padding: 40px;
+        }
+
+        .title {
+            color: #091877;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .blur {
+          border: 2px solid red;
+          background-color: rgb(253, 109, 109);
+        }
+        .focus {
+          border: 2px solid rgb(0, 38, 255);
+          background-color: rgb(128, 162, 255);
+        }        
+        .buttons {
+          text-align: center;
+        }
+
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            margin-left: 40px;
+            gap: 2px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 1.5rem;
+            color: #c7c7c7; 
+            cursor: pointer;
+            transition: color 0.5s;
+            margin: 0;
+            padding: 0 2px;
+        }
+
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffbf00; 
+        }
+
+        legend {
+            background: rgb(230, 230, 230);
+            color: rgb(37, 19, 139);
+            padding: 5px;
+        }
+       
+    </style>
+    
+  </head>
+  <body>
+    <section>
+      <h1 class="title">Add a Movie</h1>
+
+      <form id="dForm" method="post" onsubmit = "confirmSubmission(event)" onreset = "confirmReset(event)">
+        <fieldset>
+          <legend>Your Credentials</legend><br/>
+          <label> Title: 
+            <input type="text" name="title" id="title" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
+          </label><br/><br/>
+
+          <label> Year: 
+            <input type="number" name="year" id="year" required onblur = "bblur(this)" onfocus = "ffocus(this)"/>
+          </label><br/><br/>
+
+        <label> Rating: 
+        <div class="star-rating">
+
+          <input type="radio" id="star5" name="rating" value="5">
+          <label for="star5" title="5 stars">★</label>
+  
+          <input type="radio" id="star4" name="rating" value="4">
+          <label for="star4" title="4 stars">★</label>
+  
+          <input type="radio" id="star3" name="rating" value="3">
+          <label for="star3" title="3 stars">★</label>
+  
+          <input type="radio" id="star2" name="rating" value="2">
+          <label for="star2" title="2 stars">★</label>
+  
+          <input type="radio" id="star1" name="rating" value="1">
+          <label for="star1" title="1 star">★</label>
+
+        </div>
+        </label>
+
+          <label> Genre: 
+            <select name="Genre" id="Genre" required onblur = "bblur(this)" onfocus = "ffocus(this)" >
+            <option value=""></option>
+            <option value="Action">Action</option>
+            <option value="Horror">Horror</option>
+            <option value="Romance">Romance</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Drama">Drama</option> 
+            <option value="Sci-Fi">Science Fiction</option>
+          </label><br/><br/>
+
+        <button type="submit">Add Movie</button>
+          
+      </form>
+    </section>
+  </body>
+  <script>
+
+    function bblur(elem) {
+      if (elem.value.trim() === "") {
+        elem.classList.remove("focus");
+        elem.classList.add("blur");
+      } else {
+        elem.classList.remove("blur");
+      }
+    }
+
+    function ffocus(elem) {
+      if (elem.value.trim() === "") {
+        elem.classList.remove("blur");        
+        elem.classList.add("focus");
+      } else {
+        elem.classList.remove("focus");
+      }
+    }
+  </script>
+</html>
